@@ -1,0 +1,38 @@
+# ~/.tmuxinator/ndev.yml
+
+name: ed
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+pre: tmux set-option -g synchronize-panes off
+
+
+windows:
+  - ndevdb:
+      layout: tiled
+      panes:
+        - ssh ddbs1.ord.orapi.rackspace.com
+        - ssh ddbs2.ord.orapi.rackspace.com
+        - ssh ddbs3.ord.orapi.rackspace.com
+        - ssh ddbs4.ord.orapi.rackspace.com
+#        - sleep 1;tmux set-option -g synchronize-panes off;ssh ddbs4.ord.orapi.rackspace.com
+  - ndevapp:
+      layout: tiled
+      panes:
+        - ssh applmgr@dapp1.ord.orapi.rackspace.com
+        - ssh applmgr@dapp2.ord.orapi.rackspace.com
+        - ssh applmgr@dapp3.ord.orapi.rackspace.com
